@@ -113,3 +113,5 @@
 ..\obj\main.o: ..\LIB\myiic.h
 ..\obj\main.o: ..\LIB\i2c.h
 ..\obj\main.o: ..\USER\main.h
+..\obj\main.o: ..\DEBUG\scope.h
+..\obj\main.o: ..\DEBUG\kmfillter.h

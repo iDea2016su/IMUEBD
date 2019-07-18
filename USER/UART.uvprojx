@@ -335,10 +335,10 @@
             <v6WtE>0</v6WtE>
             <v6Rtti>0</v6Rtti>
             <VariousControls>
-              <MiscControls></MiscControls>
+              <MiscControls>--gnu -Dlittle_endian</MiscControls>
               <Define>USE_HAL_DRIVER, STM32H750xx</Define>
               <Undefine></Undefine>
-              <IncludePath>..\CORE;..\USER;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\HALLIB\STM32H7xx_HAL_Driver\Inc;..\HARDWARE\LED;..\HARDWARE\KEY;..\FreeRTOS;..\FreeRTOS\include;..\FreeRTOS\portable\RVDS\ARM_CM7\r0p1;..\FreeRTOS\portable\MemMang;..\LSM9D;..\LIB</IncludePath>
+              <IncludePath>..\CORE;..\USER;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\HALLIB\STM32H7xx_HAL_Driver\Inc;..\HARDWARE\LED;..\HARDWARE\KEY;..\FreeRTOS;..\FreeRTOS\include;..\FreeRTOS\portable\RVDS\ARM_CM7\r0p1;..\FreeRTOS\portable\MemMang;..\LSM9D;..\LIB;..\DEBUG</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -596,6 +596,21 @@
               <FileName>i2c.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\LIB\i2c.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>DEBUG</GroupName>
+          <Files>
+            <File>
+              <FileName>scope.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\DEBUG\scope.c</FilePath>
+            </File>
+            <File>
+              <FileName>kmfillter.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\DEBUG\kmfillter.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -74,7 +74,7 @@ static u16 fac_ms=0;							//ms延时倍乘数,在os下,代表每个节拍的ms数
 //systick中断服务函数,使用OS时用到
 void SysTick_Handler(void)
 {	
-	//HAL_IncTick();
+ //   HAL_IncTick();
 //	if(delay_osrunning==1)					//OS开始跑了,才执行正常的调度处理
 //	{
 //		OSIntEnter();						//进入中断
