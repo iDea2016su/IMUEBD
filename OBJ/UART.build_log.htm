@@ -33,10 +33,30 @@ compiling kmfillter.c...
 ..\DEBUG\kmfillter.c(5): warning:  #177-D: variable "initial"  was declared but never referenced
   static float initial = 0; //????€?
 ..\DEBUG\kmfillter.c: 2 warnings, 0 errors
+compiling main.c...
+..\LSM9D\lsm9ds1_reg.h(1214): warning:  #1-D: last line of file ends without a newline
+  /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+main.c(74): warning:  #177-D: variable "len"  was declared but never referenced
+  	u8 len;	
+main.c(75): warning:  #177-D: variable "times"  was declared but never referenced
+  	u16 times=0; 
+main.c(177): warning:  #177-D: variable "i"  was declared but never referenced
+  	static int i =0;
+main.c(283): warning:  #1-D: last line of file ends without a newline
+  }
+main.c(18): warning:  #177-D: variable "data_raw_angular_rate"  was declared but never referenced
+  static axis3bit16_t data_raw_angular_rate;
+main.c(21): warning:  #177-D: variable "angular_rate_mdps"  was declared but never referenced
+  static float angular_rate_mdps[3];
+main.c(22): warning:  #550-D: variable "magnetic_field_mgauss"  was set but never used
+  static float magnetic_field_mgauss[3];
+main.c(26): warning:  #177-D: variable "tx_buffer"  was declared but never referenced
+  static uint8_t tx_buffer[1000];
+main.c: 9 warnings, 0 errors
 linking...
-Program Size: Code=26442 RO-data=810 RW-data=236 ZI-data=24420  
+Program Size: Code=30150 RO-data=986 RW-data=240 ZI-data=24424  
 FromELF: creating hex file...
-"..\OBJ\UART.axf" - 0 Error(s), 2 Warning(s).
+"..\OBJ\UART.axf" - 0 Error(s), 11 Warning(s).
 
 <h2>Software Packages used:</h2>
 

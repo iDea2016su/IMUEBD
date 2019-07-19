@@ -204,8 +204,8 @@ void SensorData(void *pArg)
       //sprintf((char*)tx_buffer, "IMU - [mg]:%4.2f\t%4.2f\t%4.2f\r\n",acceleration_mg[0], acceleration_mg[1], acceleration_mg[2]);
 			
 			//printf("%5.3f",tx_buffer);
-			//printf("%5.3f\r\n",acc);
-			send(acc,acc1,0,0);
+			printf("%5.3f\r\n",acc);
+			//send(acc,acc1,0,0);
     }
     if ( reg.status_mag.zyxda )
     {
