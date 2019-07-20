@@ -324,7 +324,7 @@
             <wLevel>2</wLevel>
             <uThumb>0</uThumb>
             <uSurpInc>0</uSurpInc>
-            <uC99>0</uC99>
+            <uC99>1</uC99>
             <uGnu>0</uGnu>
             <useXO>0</useXO>
             <v6Lang>6</v6Lang>
@@ -338,7 +338,7 @@
               <MiscControls>--gnu -Dlittle_endian</MiscControls>
               <Define>USE_HAL_DRIVER, STM32H750xx</Define>
               <Undefine></Undefine>
-              <IncludePath>..\CORE;..\USER;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\HALLIB\STM32H7xx_HAL_Driver\Inc;..\HARDWARE\LED;..\HARDWARE\KEY;..\FreeRTOS;..\FreeRTOS\include;..\FreeRTOS\portable\RVDS\ARM_CM7\r0p1;..\FreeRTOS\portable\MemMang;..\LSM9D;..\LIB;..\DEBUG</IncludePath>
+              <IncludePath>..\CORE;..\USER;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\HALLIB\STM32H7xx_HAL_Driver\Inc;..\HARDWARE\LED;..\HARDWARE\KEY;..\FreeRTOS;..\FreeRTOS\include;..\FreeRTOS\portable\RVDS\ARM_CM7\r0p1;..\FreeRTOS\portable\MemMang;..\LSM9D;..\LIB;..\DEBUG;..\Step</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -611,6 +611,26 @@
               <FileName>kmfillter.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\DEBUG\kmfillter.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>STEP</GroupName>
+          <Files>
+            <File>
+              <FileName>step.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Step\step.c</FilePath>
+            </File>
+            <File>
+              <FileName>stepDetector.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Step\stepDetector.c</FilePath>
+            </File>
+            <File>
+              <FileName>stepCount.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Step\stepCount.c</FilePath>
             </File>
           </Files>
         </Group>

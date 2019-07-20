@@ -13,6 +13,9 @@
 #include "scope.h"
 #include "kmfillter.h"
 
+#include "step.h"
+#include "stepDetector.h"
+
 /* Private variables ---------------------------------------------------------*/
 static axis3bit16_t data_raw_acceleration;
 static axis3bit16_t data_raw_angular_rate;
@@ -54,9 +57,13 @@ TaskHandle_t LED1TaskHanhler;
 void LED1Task(void *pArg);         
 
 #define WINDOW_TASK_PRIO    3         
-#define WINDOW_STK_SIZE     50       
+#define WINDOW_STK_SIZE     512       
 TaskHandle_t WINDOWTaskHanhler;        
 void WINDOWTask(void *pArg);      
+
+#define STEP_TASK_PRIO    3         
+#define STEP_STK_SIZE     512       
+TaskHandle_t STEPTaskHanhler;        
 
 
 /* Initialize inertial sensors (IMU) driver interface */
@@ -160,13 +167,13 @@ void StartTask(void * pvParameter)
 							 (TaskHandle_t* ) &SENSOR_DATATaskHanhler //任务句柄
 	            );
 	
-	xTaskCreate( (TaskFunction_t) LED1Task,        //任务函数
-							 (const char*   ) "LED1Task",      //任务名称
-						 (uint16_t      ) LED1_STK_SIZE,     //任务堆栈大小
-						 (void *        ) NULL,              //传递给任务函数的参数
-						 (UBaseType_t   ) LED1_TASK_PRIO,    //任务优先级
-						 (TaskHandle_t* ) &LED1TaskHanhler   //任务句柄
-						);
+//	xTaskCreate( (TaskFunction_t) stepTask,        //任务函数
+//							 (const char*   ) "STEPTask",      //任务名称
+//						 (uint16_t      ) STEP_STK_SIZE,     //任务堆栈大小
+//						 (void *        ) NULL,              //传递给任务函数的参数
+//						 (UBaseType_t   ) STEP_TASK_PRIO,    //任务优先级
+//						 (TaskHandle_t* ) &STEPTaskHanhler   //任务句柄
+//						);
 	vTaskDelete(StartTaskHanhler);
 	  
   taskEXIT_CRITICAL();      //退出临界区
@@ -196,16 +203,24 @@ void SensorData(void *pArg)
       //angular_rate_mdps[0] = lsm9ds1_from_fs2000dps_to_mdps(data_raw_angular_rate.i16bit[0]);
       //angular_rate_mdps[1] = lsm9ds1_from_fs2000dps_to_mdps(data_raw_angular_rate.i16bit[1]);
       //angular_rate_mdps[2] = lsm9ds1_from_fs2000dps_to_mdps(data_raw_angular_rate.i16bit[2]);
-			float acc = acceleration_mg[0]*acceleration_mg[0]+acceleration_mg[1]*acceleration_mg[1]+acceleration_mg[2]*acceleration_mg[2]-978*978;
-			acc = acc/100;
-			float acc1 = filter(acc);
+			//float acc = acceleration_mg[0]*acceleration_mg[0]+acceleration_mg[1]*acceleration_mg[1]+acceleration_mg[2]*acceleration_mg[2]-978*978;
+			//acc = acc/100;
+			//float acc1 = filter(acc);
 
       //sprintf((char*)tx_buffer, "IMU - [mg]:%4.2f\t%4.2f\t%4.2f\t[mdps]:%4.2f\t%4.2f\t%4.2f\r\n",acceleration_mg[0], acceleration_mg[1], acceleration_mg[2],angular_rate_mdps[0], angular_rate_mdps[1], angular_rate_mdps[2]);
       //sprintf((char*)tx_buffer, "IMU - [mg]:%4.2f\t%4.2f\t%4.2f\r\n",acceleration_mg[0], acceleration_mg[1], acceleration_mg[2]);
 			
 			//printf("%5.3f",tx_buffer);
-			printf("%5.3f\r\n",acc);
+			//printf("%5.3f\r\n",acc1);
 			//send(acc,acc1,0,0);
+			//sendData(acc1);
+			//float a1 = getVar(10,acc1);
+			//float a2 = getOrder(50,acc1);
+			//send(a1,a2,acc1*a2/1000,acc1);
+			float a1 = filterA(acceleration_mg[0]);
+			float a2 = filterA(acceleration_mg[1]);
+			float a3 = filterA(acceleration_mg[2]);
+			sensorChanged(a1,a2,a3);
     }
     if ( reg.status_mag.zyxda )
     {

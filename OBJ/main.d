@@ -115,3 +115,5 @@
 ..\obj\main.o: ..\USER\main.h
 ..\obj\main.o: ..\DEBUG\scope.h
 ..\obj\main.o: ..\DEBUG\kmfillter.h
+..\obj\main.o: ..\Step\step.h
+..\obj\main.o: ..\Step\stepDetector.h

@@ -3,7 +3,9 @@
 
 #include "sys.h"
 
-float filter(float z);
+float filterA(float z);
+float filterB(float z);
+float filterC(float z);
 
 #endif
 
