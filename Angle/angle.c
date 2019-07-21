@@ -10,9 +10,9 @@ double normsqA;
 #define PI 3.1425926
 double freeFallGravitySquared = 0.01 * g * g;
 
-float Xoffset = 166.677;
-float Yoffset = 32.48;
-float Zoffset = -150.075;	
+float Xoffset = 5.8;
+float Yoffset = 161.5;
+float Zoffset = -125.57;	
 
 u8 getRotationMatrix(double gravity[], double geomagnetic[]) 
 {
@@ -26,7 +26,7 @@ u8 getRotationMatrix(double gravity[], double geomagnetic[])
 		
 		if (normsqA < freeFallGravitySquared) {
 				// gravity less than 10% of normal value
-			printf("gravity less than 10 of normal value\r\n");
+		//	printf("gravity less than 10 of normal value\r\n");
 				return false;
 		}
 		double Ex = geomagnetic[0];
@@ -39,7 +39,7 @@ u8 getRotationMatrix(double gravity[], double geomagnetic[])
 		if (normH < 0.1f) {
 				// device is close to free fall (or in space?), or close to
 				// magnetic north pole. Typical values are  > 100.
-				printf("magnetic less than 10 of normal value\r\n");
+		//		printf("magnetic less than 10 of normal value\r\n");
 				return false;
 		}
 		double invH = 1.0 / normH;

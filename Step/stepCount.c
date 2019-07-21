@@ -28,6 +28,7 @@ void countStep()
 		{
 			mCount++;
 			printf("step:%d:%f\r\n",mCount,getAngle());
+			vTaskDelay(20);
 		}
 	}
 	else

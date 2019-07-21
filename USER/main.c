@@ -77,6 +77,11 @@ TaskHandle_t STEPTaskHanhler;
   lsm9ds1_ctx_t dev_ctx_imu;
 
 	
+	
+ 	float Xmax,Xmin;												 
+	float Ymax,Ymin;											 
+	float Zmax,Zmin;												 
+	float tXoffset,tYoffset,tZoffset;				 
 
 int main(void)
 {
@@ -231,10 +236,19 @@ void SensorData(void *pArg)
 		    mag[1] = filterAngleY(magnetic_field_mgauss[1]);
 			  mag[2] = filterAngleZ(magnetic_field_mgauss[2]);
 				
+//	    	mag[0] = (magnetic_field_mgauss[0]);
+//		    mag[1] = (magnetic_field_mgauss[1]);
+//			  mag[2] = (magnetic_field_mgauss[2]);
+				
+				i++;
 				float ang = Data_conversion(acc,mag);
 				float angle = filter(ang);
 				setAngle(angle);
-				//printf("%f\r\n",angle);
+				if(i%100==0)
+				{
+					printf("angle:%5.3f\r\n",angle);
+				}
+				//printf("angle:%5.3f\r\n",angle);
 				//getOrientation(acc,magnetic_field_mgauss);
 				//printAttitude(acc, magnetic_field_mgauss);			
 			}
