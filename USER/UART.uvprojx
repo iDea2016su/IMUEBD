@@ -338,7 +338,7 @@
               <MiscControls>--gnu -Dlittle_endian</MiscControls>
               <Define>USE_HAL_DRIVER, STM32H750xx</Define>
               <Undefine></Undefine>
-              <IncludePath>..\CORE;..\USER;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\HALLIB\STM32H7xx_HAL_Driver\Inc;..\HARDWARE\LED;..\HARDWARE\KEY;..\FreeRTOS;..\FreeRTOS\include;..\FreeRTOS\portable\RVDS\ARM_CM7\r0p1;..\FreeRTOS\portable\MemMang;..\LSM9D;..\LIB;..\DEBUG;..\Step</IncludePath>
+              <IncludePath>..\CORE;..\USER;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\HALLIB\STM32H7xx_HAL_Driver\Inc;..\HARDWARE\LED;..\HARDWARE\KEY;..\FreeRTOS;..\FreeRTOS\include;..\FreeRTOS\portable\RVDS\ARM_CM7\r0p1;..\FreeRTOS\portable\MemMang;..\LSM9D;..\LIB;..\DEBUG;..\Step;..\Angle</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -618,11 +618,6 @@
           <GroupName>STEP</GroupName>
           <Files>
             <File>
-              <FileName>step.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Step\step.c</FilePath>
-            </File>
-            <File>
               <FileName>stepDetector.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Step\stepDetector.c</FilePath>
@@ -631,6 +626,16 @@
               <FileName>stepCount.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Step\stepCount.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Angle</GroupName>
+          <Files>
+            <File>
+              <FileName>angle.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Angle\angle.c</FilePath>
             </File>
           </Files>
         </Group>

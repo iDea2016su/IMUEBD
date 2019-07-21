@@ -26,7 +26,7 @@ void countStep()
 		else
 		{
 			mCount++;
-			printf("step: %d\r\n",mCount);
+			//printf("step: %d\r\n",mCount);
 		}
 	}
 	else

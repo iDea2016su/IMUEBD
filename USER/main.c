@@ -13,8 +13,9 @@
 #include "scope.h"
 #include "kmfillter.h"
 
-#include "step.h"
 #include "stepDetector.h"
+
+#include "angle.h"
 
 /* Private variables ---------------------------------------------------------*/
 static axis3bit16_t data_raw_acceleration;
@@ -182,11 +183,11 @@ void StartTask(void * pvParameter)
 void SensorData(void *pArg)
 {
 	static int i =0;
+	float acc[3];
 	while(1)
 	{
   /* Read device status register */
     lsm9ds1_dev_status_get(&dev_ctx_mag, &dev_ctx_imu, &reg);
-
     if ( reg.status_imu.xlda && reg.status_imu.gda )
     {
       /* Read imu data */
@@ -200,42 +201,35 @@ void SensorData(void *pArg)
       acceleration_mg[1] = lsm9ds1_from_fs4g_to_mg(data_raw_acceleration.i16bit[1]);
       acceleration_mg[2] = lsm9ds1_from_fs4g_to_mg(data_raw_acceleration.i16bit[2]);
 
-      //angular_rate_mdps[0] = lsm9ds1_from_fs2000dps_to_mdps(data_raw_angular_rate.i16bit[0]);
-      //angular_rate_mdps[1] = lsm9ds1_from_fs2000dps_to_mdps(data_raw_angular_rate.i16bit[1]);
-      //angular_rate_mdps[2] = lsm9ds1_from_fs2000dps_to_mdps(data_raw_angular_rate.i16bit[2]);
-			//float acc = acceleration_mg[0]*acceleration_mg[0]+acceleration_mg[1]*acceleration_mg[1]+acceleration_mg[2]*acceleration_mg[2]-978*978;
-			//acc = acc/100;
-			//float acc1 = filter(acc);
+			acc[0] = filterStepX(acceleration_mg[0]);
+			acc[1] = filterStepY(acceleration_mg[1]);
+			acc[2] = filterStepZ(acceleration_mg[2]);
+			//printf("x:%5.3f y:%5.3f z:%5.3f\r\n",acc[0],acc[1],acc[2]);
+			sensorChanged(acc[0],acc[1],acc[2]);
+			if ( reg.status_mag.zyxda )
+			{
+				/* Read magnetometer data */
+				memset(data_raw_magnetic_field.u8bit, 0x00, 3 * sizeof(int16_t));
 
-      //sprintf((char*)tx_buffer, "IMU - [mg]:%4.2f\t%4.2f\t%4.2f\t[mdps]:%4.2f\t%4.2f\t%4.2f\r\n",acceleration_mg[0], acceleration_mg[1], acceleration_mg[2],angular_rate_mdps[0], angular_rate_mdps[1], angular_rate_mdps[2]);
-      //sprintf((char*)tx_buffer, "IMU - [mg]:%4.2f\t%4.2f\t%4.2f\r\n",acceleration_mg[0], acceleration_mg[1], acceleration_mg[2]);
-			
-			//printf("%5.3f",tx_buffer);
-			//printf("%5.3f\r\n",acc1);
-			//send(acc,acc1,0,0);
-			//sendData(acc1);
-			//float a1 = getVar(10,acc1);
-			//float a2 = getOrder(50,acc1);
-			//send(a1,a2,acc1*a2/1000,acc1);
-			float a1 = filterA(acceleration_mg[0]);
-			float a2 = filterA(acceleration_mg[1]);
-			float a3 = filterA(acceleration_mg[2]);
-			sensorChanged(a1,a2,a3);
+				lsm9ds1_magnetic_raw_get(&dev_ctx_mag, data_raw_magnetic_field.u8bit);
+
+				magnetic_field_mgauss[0] = lsm9ds1_from_fs16gauss_to_mG(data_raw_magnetic_field.i16bit[0]);
+				magnetic_field_mgauss[1] = lsm9ds1_from_fs16gauss_to_mG(data_raw_magnetic_field.i16bit[1]);
+				magnetic_field_mgauss[2] = lsm9ds1_from_fs16gauss_to_mG(data_raw_magnetic_field.i16bit[2]);
+
+				sprintf((char*)tx_buffer, "MAG - [mG]:%4.2f\t%4.2f\t%4.2f\r\n",magnetic_field_mgauss[0], magnetic_field_mgauss[1], magnetic_field_mgauss[2]);
+		    printf("%s",tx_buffer);
+				float angle[3] = {0,0,0};
+				
+				//printf("x:%5.3f y:%5.3f z:%5.3f\r\n",angle[0],angle[1],angle[2]);
+				acc[0] = filterAngleX(acceleration_mg[0]);
+		    acc[1] = filterAngleY(acceleration_mg[1]);
+			  acc[2] = filterAngleZ(acceleration_mg[2]);
+				getOrientation(acc,magnetic_field_mgauss,angle);
+				//printAttitude(acc, magnetic_field_mgauss);			
+			}
     }
-    if ( reg.status_mag.zyxda )
-    {
-      /* Read magnetometer data */
-      memset(data_raw_magnetic_field.u8bit, 0x00, 3 * sizeof(int16_t));
-
-      lsm9ds1_magnetic_raw_get(&dev_ctx_mag, data_raw_magnetic_field.u8bit);
-
-      magnetic_field_mgauss[0] = lsm9ds1_from_fs16gauss_to_mG(data_raw_magnetic_field.i16bit[0]);
-      magnetic_field_mgauss[1] = lsm9ds1_from_fs16gauss_to_mG(data_raw_magnetic_field.i16bit[1]);
-      magnetic_field_mgauss[2] = lsm9ds1_from_fs16gauss_to_mG(data_raw_magnetic_field.i16bit[2]);
-
-     // sprintf((char*)tx_buffer, "MAG - [mG]:%4.2f\t%4.2f\t%4.2f\r\n",magnetic_field_mgauss[0], magnetic_field_mgauss[1], magnetic_field_mgauss[2]);
-    //  printf("%s",tx_buffer);
-    }
+    
    	vTaskDelay(1);
   }
 		
