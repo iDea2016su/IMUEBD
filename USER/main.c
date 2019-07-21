@@ -16,6 +16,7 @@
 #include "stepDetector.h"
 
 #include "angle.h"
+#include "math.h"
 
 /* Private variables ---------------------------------------------------------*/
 static axis3bit16_t data_raw_acceleration;
@@ -183,9 +184,11 @@ void StartTask(void * pvParameter)
 void SensorData(void *pArg)
 {
 	static int i =0;
-	float acc[3];
+	float acc[3] = {0};
+	float mag[3]={0};
 	while(1)
 	{
+	
   /* Read device status register */
     lsm9ds1_dev_status_get(&dev_ctx_mag, &dev_ctx_imu, &reg);
     if ( reg.status_imu.xlda && reg.status_imu.gda )
@@ -217,15 +220,22 @@ void SensorData(void *pArg)
 				magnetic_field_mgauss[1] = lsm9ds1_from_fs16gauss_to_mG(data_raw_magnetic_field.i16bit[1]);
 				magnetic_field_mgauss[2] = lsm9ds1_from_fs16gauss_to_mG(data_raw_magnetic_field.i16bit[2]);
 
-				sprintf((char*)tx_buffer, "MAG - [mG]:%4.2f\t%4.2f\t%4.2f\r\n",magnetic_field_mgauss[0], magnetic_field_mgauss[1], magnetic_field_mgauss[2]);
-		    printf("%s",tx_buffer);
-				float angle[3] = {0,0,0};
+				//sprintf((char*)tx_buffer, "MAG - [mG]:%4.2f\t%4.2f\t%4.2f\r\n",magnetic_field_mgauss[0], magnetic_field_mgauss[1], magnetic_field_mgauss[2]);
+		    //printf("%s",tx_buffer);
 				
-				//printf("x:%5.3f y:%5.3f z:%5.3f\r\n",angle[0],angle[1],angle[2]);
 				acc[0] = filterAngleX(acceleration_mg[0]);
 		    acc[1] = filterAngleY(acceleration_mg[1]);
 			  acc[2] = filterAngleZ(acceleration_mg[2]);
-				getOrientation(acc,magnetic_field_mgauss,angle);
+				
+	    	mag[0] = filterAngleX(magnetic_field_mgauss[0]);
+		    mag[1] = filterAngleY(magnetic_field_mgauss[1]);
+			  mag[2] = filterAngleZ(magnetic_field_mgauss[2]);
+				
+				float ang = Data_conversion(acc,mag);
+				float angle = filter(ang);
+				setAngle(angle);
+				//printf("%f\r\n",angle);
+				//getOrientation(acc,magnetic_field_mgauss);
 				//printAttitude(acc, magnetic_field_mgauss);			
 			}
     }

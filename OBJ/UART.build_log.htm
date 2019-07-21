@@ -27,7 +27,42 @@ Project File Date:  07/20/2019
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 6 (build 750)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'UART'
-"..\OBJ\UART.axf" - 0 Error(s), 0 Warning(s).
+compiling angle.c...
+..\Angle\angle.h(14): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\Angle\angle.c(103): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	fCosRoll = sqrt(1.0-(fSinRoll * fSinRoll));
+..\Angle\angle.c(105): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	fCosPitch = sqrt(1.0-(fSinPitch * fSinPitch));
+..\Angle\angle.c(138): warning:  #1-D: last line of file ends without a newline
+  }
+..\Angle\angle.c: 4 warnings, 0 errors
+compiling main.c...
+..\LSM9D\lsm9ds1_reg.h(1214): warning:  #1-D: last line of file ends without a newline
+  /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+..\Step\stepDetector.h(12): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\Angle\angle.h(14): warning:  #1-D: last line of file ends without a newline
+  #endif
+main.c(83): warning:  #177-D: variable "len"  was declared but never referenced
+  	u8 len;	
+main.c(84): warning:  #177-D: variable "times"  was declared but never referenced
+  	u16 times=0; 
+main.c(186): warning:  #177-D: variable "i"  was declared but never referenced
+  	static int i =0;
+main.c(302): warning:  #1-D: last line of file ends without a newline
+  }
+main.c(23): warning:  #177-D: variable "data_raw_angular_rate"  was declared but never referenced
+  static axis3bit16_t data_raw_angular_rate;
+main.c(26): warning:  #177-D: variable "angular_rate_mdps"  was declared but never referenced
+  static float angular_rate_mdps[3];
+main.c(31): warning:  #177-D: variable "tx_buffer"  was declared but never referenced
+  static uint8_t tx_buffer[1000];
+main.c: 10 warnings, 0 errors
+linking...
+Program Size: Code=33738 RO-data=1070 RW-data=716 ZI-data=24468  
+FromELF: creating hex file...
+"..\OBJ\UART.axf" - 0 Error(s), 14 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -41,7 +76,7 @@ Package Vendor: Keil
   C:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\2.3.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include
 
 <h2>Collection of Component Files used:</h2>
-Build Time Elapsed:  00:00:01
+Build Time Elapsed:  00:00:02
 </pre>
 </body>
 </html>

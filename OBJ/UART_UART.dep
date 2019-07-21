@@ -1,5 +1,5 @@
 Dependencies for Project 'UART', Target 'UART': (DO NOT MODIFY !)
-F (.\main.c)(0x5D33DC4E)(--c99 -c --cpu Cortex-M7.fp.dp -g -O0 --apcs=interwork --split_sections -I ..\CORE -I ..\USER -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\HALLIB\STM32H7xx_HAL_Driver\Inc -I ..\HARDWARE\LED -I ..\HARDWARE\KEY -I ..\FreeRTOS -I ..\FreeRTOS\include -I ..\FreeRTOS\portable\RVDS\ARM_CM7\r0p1 -I ..\FreeRTOS\portable\MemMang -I ..\LSM9D -I ..\LIB -I ..\DEBUG -I ..\Step -I ..\Angle --gnu -Dlittle_endian-I.\RTE\_UART-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\2.3.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="527" -DSTM32H750xx -DUSE_HAL_DRIVER -DSTM32H750xx-o ..\obj\main.o --depend ..\obj\main.d)
+F (.\main.c)(0x5D341BE3)(--c99 -c --cpu Cortex-M7.fp.dp -g -O0 --apcs=interwork --split_sections -I ..\CORE -I ..\USER -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\HALLIB\STM32H7xx_HAL_Driver\Inc -I ..\HARDWARE\LED -I ..\HARDWARE\KEY -I ..\FreeRTOS -I ..\FreeRTOS\include -I ..\FreeRTOS\portable\RVDS\ARM_CM7\r0p1 -I ..\FreeRTOS\portable\MemMang -I ..\LSM9D -I ..\LIB -I ..\DEBUG -I ..\Step -I ..\Angle --gnu -Dlittle_endian-I.\RTE\_UART-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\2.3.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="527" -DSTM32H750xx -DUSE_HAL_DRIVER -DSTM32H750xx-o ..\obj\main.o --depend ..\obj\main.d)
 I (..\SYSTEM\sys\sys.h)(0x5D31AB38)
 I (..\USER\stm32h7xx.h)(0x5CD53CB2)
 I (..\USER\stm32h750xx.h)(0x5B3B89DA)
@@ -113,9 +113,9 @@ I (..\LIB\myiic.h)(0x5D286E9C)
 I (..\LIB\i2c.h)(0x5D294753)
 I (..\USER\main.h)(0x59376D7A)
 I (..\DEBUG\scope.h)(0x5D29CDE2)
-I (..\DEBUG\kmfillter.h)(0x5D32C1A5)
+I (..\DEBUG\kmfillter.h)(0x5D341A40)
 I (..\Step\stepDetector.h)(0x5D3274EC)
-I (..\Angle\angle.h)(0x5D32CADD)
+I (..\Angle\angle.h)(0x5D3419FC)
 F (.\stm32h7xx_it.c)(0x5D273A0D)(--c99 -c --cpu Cortex-M7.fp.dp -g -O0 --apcs=interwork --split_sections -I ..\CORE -I ..\USER -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\HALLIB\STM32H7xx_HAL_Driver\Inc -I ..\HARDWARE\LED -I ..\HARDWARE\KEY -I ..\FreeRTOS -I ..\FreeRTOS\include -I ..\FreeRTOS\portable\RVDS\ARM_CM7\r0p1 -I ..\FreeRTOS\portable\MemMang -I ..\LSM9D -I ..\LIB -I ..\DEBUG -I ..\Step -I ..\Angle --gnu -Dlittle_endian-I.\RTE\_UART-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\2.3.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="527" -DSTM32H750xx -DUSE_HAL_DRIVER -DSTM32H750xx-o ..\obj\stm32h7xx_it.o --depend ..\obj\stm32h7xx_it.d)
 I (stm32h7xx_it.h)(0x5B3BDD14)
 I (main.h)(0x59376D7A)
@@ -3246,8 +3246,8 @@ I (..\HALLIB\STM32H7xx_HAL_Driver\Inc\stm32h7xx_ll_usb.h)(0x5B3BDEFE)
 I (..\HALLIB\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal_pcd_ex.h)(0x5B3BDED8)
 I (..\HALLIB\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal_hcd.h)(0x5B3BDEBA)
 I (..\SYSTEM\usart\usart.h)(0x5CD53A6D)
-F (..\DEBUG\kmfillter.c)(0x5D32C608)(--c99 -c --cpu Cortex-M7.fp.dp -g -O0 --apcs=interwork --split_sections -I ..\CORE -I ..\USER -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\HALLIB\STM32H7xx_HAL_Driver\Inc -I ..\HARDWARE\LED -I ..\HARDWARE\KEY -I ..\FreeRTOS -I ..\FreeRTOS\include -I ..\FreeRTOS\portable\RVDS\ARM_CM7\r0p1 -I ..\FreeRTOS\portable\MemMang -I ..\LSM9D -I ..\LIB -I ..\DEBUG -I ..\Step -I ..\Angle --gnu -Dlittle_endian-I.\RTE\_UART-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\2.3.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="527" -DSTM32H750xx -DUSE_HAL_DRIVER -DSTM32H750xx-o ..\obj\kmfillter.o --depend ..\obj\kmfillter.d)
-I (..\DEBUG\kmfillter.h)(0x5D32C1A5)
+F (..\DEBUG\kmfillter.c)(0x5D341ADD)(--c99 -c --cpu Cortex-M7.fp.dp -g -O0 --apcs=interwork --split_sections -I ..\CORE -I ..\USER -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\HALLIB\STM32H7xx_HAL_Driver\Inc -I ..\HARDWARE\LED -I ..\HARDWARE\KEY -I ..\FreeRTOS -I ..\FreeRTOS\include -I ..\FreeRTOS\portable\RVDS\ARM_CM7\r0p1 -I ..\FreeRTOS\portable\MemMang -I ..\LSM9D -I ..\LIB -I ..\DEBUG -I ..\Step -I ..\Angle --gnu -Dlittle_endian-I.\RTE\_UART-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\2.3.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="527" -DSTM32H750xx -DUSE_HAL_DRIVER -DSTM32H750xx-o ..\obj\kmfillter.o --depend ..\obj\kmfillter.d)
+I (..\DEBUG\kmfillter.h)(0x5D341A40)
 I (..\SYSTEM\sys\sys.h)(0x5D31AB38)
 I (..\USER\stm32h7xx.h)(0x5CD53CB2)
 I (..\USER\stm32h750xx.h)(0x5B3B89DA)
@@ -3449,7 +3449,7 @@ I (..\FreeRTOS\include\mpu_wrappers.h)(0x573F3A16)
 I (..\FreeRTOS\include\task.h)(0x573F3A16)
 I (..\FreeRTOS\include\list.h)(0x573F3A16)
 I (..\Step\stepCount.h)(0x5D32745C)
-F (..\Step\stepCount.c)(0x5D32BDC5)(--c99 -c --cpu Cortex-M7.fp.dp -g -O0 --apcs=interwork --split_sections -I ..\CORE -I ..\USER -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\HALLIB\STM32H7xx_HAL_Driver\Inc -I ..\HARDWARE\LED -I ..\HARDWARE\KEY -I ..\FreeRTOS -I ..\FreeRTOS\include -I ..\FreeRTOS\portable\RVDS\ARM_CM7\r0p1 -I ..\FreeRTOS\portable\MemMang -I ..\LSM9D -I ..\LIB -I ..\DEBUG -I ..\Step -I ..\Angle --gnu -Dlittle_endian-I.\RTE\_UART-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\2.3.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="527" -DSTM32H750xx -DUSE_HAL_DRIVER -DSTM32H750xx-o ..\obj\stepcount.o --depend ..\obj\stepcount.d)
+F (..\Step\stepCount.c)(0x5D341B43)(--c99 -c --cpu Cortex-M7.fp.dp -g -O0 --apcs=interwork --split_sections -I ..\CORE -I ..\USER -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\HALLIB\STM32H7xx_HAL_Driver\Inc -I ..\HARDWARE\LED -I ..\HARDWARE\KEY -I ..\FreeRTOS -I ..\FreeRTOS\include -I ..\FreeRTOS\portable\RVDS\ARM_CM7\r0p1 -I ..\FreeRTOS\portable\MemMang -I ..\LSM9D -I ..\LIB -I ..\DEBUG -I ..\Step -I ..\Angle --gnu -Dlittle_endian-I.\RTE\_UART-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\2.3.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="527" -DSTM32H750xx -DUSE_HAL_DRIVER -DSTM32H750xx-o ..\obj\stepcount.o --depend ..\obj\stepcount.d)
 I (..\Step\stepCount.h)(0x5D32745C)
 I (..\SYSTEM\sys\sys.h)(0x5D31AB38)
 I (..\USER\stm32h7xx.h)(0x5CD53CB2)
@@ -3555,8 +3555,9 @@ I (..\FreeRTOS\portable\RVDS\ARM_CM7\r0p1\portmacro.h)(0x573F3A17)
 I (..\FreeRTOS\include\mpu_wrappers.h)(0x573F3A16)
 I (..\FreeRTOS\include\task.h)(0x573F3A16)
 I (..\FreeRTOS\include\list.h)(0x573F3A16)
-F (..\Angle\angle.c)(0x5D33DC14)(--c99 -c --cpu Cortex-M7.fp.dp -g -O0 --apcs=interwork --split_sections -I ..\CORE -I ..\USER -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\HALLIB\STM32H7xx_HAL_Driver\Inc -I ..\HARDWARE\LED -I ..\HARDWARE\KEY -I ..\FreeRTOS -I ..\FreeRTOS\include -I ..\FreeRTOS\portable\RVDS\ARM_CM7\r0p1 -I ..\FreeRTOS\portable\MemMang -I ..\LSM9D -I ..\LIB -I ..\DEBUG -I ..\Step -I ..\Angle --gnu -Dlittle_endian-I.\RTE\_UART-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\2.3.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="527" -DSTM32H750xx -DUSE_HAL_DRIVER -DSTM32H750xx-o ..\obj\angle.o --depend ..\obj\angle.d)
-I (..\Angle\angle.h)(0x5D32CADD)
+I (..\Angle\angle.h)(0x5D3419FC)
+F (..\Angle\angle.c)(0x5D341BC6)(--c99 -c --cpu Cortex-M7.fp.dp -g -O0 --apcs=interwork --split_sections -I ..\CORE -I ..\USER -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\HALLIB\STM32H7xx_HAL_Driver\Inc -I ..\HARDWARE\LED -I ..\HARDWARE\KEY -I ..\FreeRTOS -I ..\FreeRTOS\include -I ..\FreeRTOS\portable\RVDS\ARM_CM7\r0p1 -I ..\FreeRTOS\portable\MemMang -I ..\LSM9D -I ..\LIB -I ..\DEBUG -I ..\Step -I ..\Angle --gnu -Dlittle_endian-I.\RTE\_UART-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\2.3.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="527" -DSTM32H750xx -DUSE_HAL_DRIVER -DSTM32H750xx-o ..\obj\angle.o --depend ..\obj\angle.d)
+I (..\Angle\angle.h)(0x5D3419FC)
 I (..\SYSTEM\sys\sys.h)(0x5D31AB38)
 I (..\USER\stm32h7xx.h)(0x5CD53CB2)
 I (..\USER\stm32h750xx.h)(0x5B3B89DA)

@@ -1,7 +1,7 @@
 #include "kmfillter.h"
 
-static float Q = 0.01;  //过程噪声方差
-static float R = 10;  //观测噪声方差
+static float Q = 0.1;  //过程噪声方差
+static float R = 1;  //观测噪声方差
 static float initial = 0; //初值
 static float A = 1;       //状态系数
 static float C = 1;       //观测系数
@@ -177,4 +177,31 @@ float filterAngleZ(float z)
 	AngleZXkf_k1 = AngleZX_pre+AngleZKg*(z-AngleZC*AngleZX_pre);
 	AngleZP_k1 = (1-AngleZKg*AngleZC)*AngleZP_pre;
 	return AngleZXkf_k1;
+}
+float filterMX(float z)
+{
+	MXX_pre = MXA*MXXkf_k1;
+	MXP_pre = MXP_k1+MXQ;
+	MXKg = MXP_pre/(MXP_pre+MXR);
+	MXXkf_k1 = MXX_pre+MXKg*(z-MXC*MXX_pre);
+	MXP_k1 = (1-MXKg*MXC)*MXP_pre;
+	return MXXkf_k1;
+}
+float filterMY(float z)
+{
+	MYX_pre = MYA*MYXkf_k1;
+	MYP_pre = MYP_k1+MYQ;
+	MYKg = MYP_pre/(MYP_pre+MYR);
+	MYXkf_k1 = MYX_pre+MYKg*(z-MYC*MYX_pre);
+	MYP_k1 = (1-MYKg*MYC)*MYP_pre;
+	return MYXkf_k1;
+}
+float filterMZ(float z)
+{
+	MZX_pre = MZA*MZXkf_k1;
+	MZP_pre = MZP_k1+MZQ;
+	MZKg = MZP_pre/(MZP_pre+MZR);
+	MZXkf_k1 = MZX_pre+MZKg*(z-MZC*MZX_pre);
+	MZP_k1 = (1-MZKg*MZC)*MZP_pre;
+	return MZXkf_k1;
 }

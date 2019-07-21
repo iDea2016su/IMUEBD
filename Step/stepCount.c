@@ -1,6 +1,7 @@
 #include "stepCount.h"
 #include "FreeRTOS.h"			 
 #include "task.h"
+#include "angle.h"
 
 
 static int mCount = 0;  //当前步数
@@ -26,7 +27,7 @@ void countStep()
 		else
 		{
 			mCount++;
-			//printf("step: %d\r\n",mCount);
+			printf("step:%d:%f\r\n",mCount,getAngle());
 		}
 	}
 	else

@@ -2,10 +2,13 @@
 #define ANGLE_H
 #include "sys.h"
 
-u8 getRotationMatrix(float gravity[], float geomagnetic[]);
-void getOrientation(float gravity[], float geomagnetic[], float angle[]);
-float getAngle360(float anglePi);
-void printAttitude(float a[], float m[]);
-float getInclination(void); 
+u8 getRotationMatrix(double gravity[], double geomagnetic[]);
+void getOrientation(double gravity[], double geomagnetic[]);
+double getAngle360(double anglePi);
+void printAttitude(double a[], double m[]);
+double getInclination(void); 
+float Data_conversion(float *AccBuffer,float *MagBuffer);
 
+void setAngle(float a);
+float getAngle(void);
 #endif

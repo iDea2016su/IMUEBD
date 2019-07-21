@@ -106,3 +106,4 @@
 ..\obj\stepcount.o: ..\FreeRTOS\include\mpu_wrappers.h
 ..\obj\stepcount.o: ..\FreeRTOS\include\task.h
 ..\obj\stepcount.o: ..\FreeRTOS\include\list.h
+..\obj\stepcount.o: ..\Angle\angle.h

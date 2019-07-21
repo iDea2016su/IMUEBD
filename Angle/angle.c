@@ -1,24 +1,25 @@
 #include "angle.h"
 #include "math.h"
 
-static float Re[9] = {0};
-static float I[9] = {0};
-static float accelerometerValues[3] = {0};
-static float magneticFieldValues[3] = {0};
-static float normsqA;
-static float values[3]={0};
+static float systemAngle;
+
+double Re[9] = {0};
+double normsqA;
 
 #define g  9.80
-#define DECLINATION -8.58
 #define PI 3.1425926
-static float freeFallGravitySquared = 0.01f * g * g;
+double freeFallGravitySquared = 0.01 * g * g;
 
-u8 getRotationMatrix(float gravity[], float geomagnetic[]) 
+float Xoffset = 166.677;
+float Yoffset = 32.48;
+float Zoffset = -150.075;	
+
+u8 getRotationMatrix(double gravity[], double geomagnetic[]) 
 {
 		// TODO: move this to native code for efficiency
-		float Ax = gravity[0]/100;
-		float Ay = gravity[1]/100;
-		float Az = gravity[2]/100;
+		double Ax = gravity[0];
+		double Ay = gravity[1];
+		double Az = gravity[2];
 
 		normsqA = (Ax * Ax + Ay * Ay + Az * Az);
 		
@@ -26,91 +27,112 @@ u8 getRotationMatrix(float gravity[], float geomagnetic[])
 		if (normsqA < freeFallGravitySquared) {
 				// gravity less than 10% of normal value
 			printf("gravity less than 10 of normal value\r\n");
-			while(1);
 				return false;
 		}
-		float Ex = geomagnetic[0];
-		float Ey = geomagnetic[1];
-		float Ez = geomagnetic[2];
-		float Hx = Ey * Az - Ez * Ay;
-		float Hy = Ez * Ax - Ex * Az;
-		float Hz = Ex * Ay - Ey * Ax;
-		float normH = (float)sqrt(Hx * Hx + Hy * Hy + Hz * Hz);
+		double Ex = geomagnetic[0];
+		double Ey = geomagnetic[1];
+		double Ez = geomagnetic[2];
+		double Hx = Ey * Az - Ez * Ay;
+		double Hy = Ez * Ax - Ex * Az;
+		double Hz = Ex * Ay - Ey * Ax;
+		double normH = (double)sqrt(Hx * Hx + Hy * Hy + Hz * Hz);
 		if (normH < 0.1f) {
 				// device is close to free fall (or in space?), or close to
 				// magnetic north pole. Typical values are  > 100.
 				printf("magnetic less than 10 of normal value\r\n");
-			  while(1);
 				return false;
 		}
-		float invH = 1.0f / normH;
+		double invH = 1.0 / normH;
 		Hx *= invH;
 		Hy *= invH;
 		Hz *= invH;
-		float invA = 1.0f / (float) sqrt(Ax * Ax + Ay * Ay + Az * Az);
+		double invA = 1.0 / (double) sqrt(Ax * Ax + Ay * Ay + Az * Az);
 		Ax *= invA;
 		Ay *= invA;
 		Az *= invA;
-		float Mx = Ay * Hz - Az * Hy;
-		float My = Az * Hx - Ax * Hz;
-		float Mz = Ax * Hy - Ay * Hx;
+		double Mx = Ay * Hz - Az * Hy;
+		double My = Az * Hx - Ax * Hz;
+		double Mz = Ax * Hy - Ay * Hx;
 
 		Re[0] = Hx;     Re[1] = Hy;     Re[2] = Hz;
 		Re[3] = Mx;     Re[4] = My;     Re[5] = Mz;
 		Re[6] = Ax;     Re[7] = Ay;     Re[8] = Az;
 				
-		// compute the inclination matrix by projecting the geomagnetic
-		// vector onto the Z (gravity) and X (horizontal component
-		// of geomagnetic vector) axes.
-		float invE = 1.0f / (float)sqrt(Ex * Ex + Ey * Ey + Ez * Ez);
-		float c = (Ex * Mx + Ey * My + Ez * Mz) * invE;
-		float s = (Ex * Ax + Ey * Ay + Ez * Az) * invE;
-		I[0] = 1;     I[1] = 0;     I[2] = 0;
-		I[3] = 0;     I[4] = c;     I[5] = s;
-		I[6] = 0;     I[7] = -s;     I[8] = c;
 		return true;
 }
 
-void getOrientation(float gravity[], float geomagnetic[], float angle[]) 
+void getOrientation(double gravity[], double geomagnetic[]) 
 {
-	  getRotationMatrix(gravity,geomagnetic);
+	  double acc[3] = {0};
+		double m[3] = {0};
+		double angle[3] = {0};
+		acc[0] = gravity[0]/100.0f;
+		acc[1] = gravity[1]/100.0f;
+		acc[2] = gravity[2]/100.0f;
+		m[0] = (geomagnetic[0] - Xoffset);
+		m[1] = (geomagnetic[1] - Yoffset);
+		m[2] = (geomagnetic[2] - Zoffset);
+	  getRotationMatrix(acc,m);
 		angle[0] = (float) atan2(Re[1], Re[4]);
 		angle[1] = (float) asin(-Re[7]);
 		angle[2] = (float) atan2(-Re[6], Re[8]);
-	  //printf("x:%d y:%d z:%d\r\n",(int)getAngle360(angle[0]),(int)getAngle360(angle[1]),(int)getAngle360(angle[2]));
+	  printf("x:%d\r\n",(int)getAngle360(angle[0]));
 	  //printf("angle %5.3f\r\n",getInclination()*180/PI);
 }
 
-float getInclination() 
-{
-    return (float) atan2(I[5], I[4]);
-}
-float getAngle360(float anglePi)
+double getAngle360(double anglePi)
 {
 	return anglePi*180/PI;
 }
 
-void printAttitude(float a[], float m[])
+/********************************************/
+float Data_conversion(float *AccBuffer,float *MagBuffer)
 {
-  float roll = atan2(a[1], a[2]);
-  float pitch = atan2(-a[0], sqrt(a[1] * a[1] + a[2] * a[2]));
-  
-  float heading;
-  if (m[1] == 0)
-    heading = (m[0] < 0) ? 180.0 : 0;
-  else
-    heading = atan2(m[0], m[1]);
-    
-  heading -= DECLINATION * PI / 180;
-  
-  if (heading > PI) heading -= (2 * PI);
-  else if (heading < -PI) heading += (2 * PI);
-  else if (heading < 0) heading += 2 * PI;
-  
-  // Convert everything from radians to degrees:
-  heading *= 180.0 / PI;                     
-  pitch *= 180.0 / PI;
-  roll  *= 180.0 / PI;
+  unsigned char i;
+	float HeadingValue = 0.0f;
+	float fNormAcc,fSinRoll,fCosRoll,fSinPitch,fCosPitch = 0.0f;
+  float fTiltedX,fTiltedY = 0.0f;
+	float fcosf=0;
+	for(i=0;i<3;i++)
+	{
+		AccBuffer[i] /= 100.0f;
+	}
+  fNormAcc = sqrt((AccBuffer[0]*AccBuffer[0])+(AccBuffer[1]*AccBuffer[1])+(AccBuffer[2]*AccBuffer[2]));
+      
+	fSinRoll = AccBuffer[1]/fNormAcc;
+	fCosRoll = sqrt(1.0-(fSinRoll * fSinRoll));
+	fSinPitch = AccBuffer[0]/fNormAcc;
+	fCosPitch = sqrt(1.0-(fSinPitch * fSinPitch));
 
-  //printf("x:%d y:%d z:%d\r\n",(int)roll,(int)pitch,(int)heading);
+	MagBuffer[0] = MagBuffer[0] - Xoffset;
+	MagBuffer[1] = MagBuffer[1] - Yoffset;
+	MagBuffer[2] = MagBuffer[2] - Zoffset;
+  
+	fTiltedX = MagBuffer[0]*fCosPitch + MagBuffer[2]*fSinPitch;
+	fTiltedY = MagBuffer[0]*fSinRoll*fSinPitch + MagBuffer[1]*fCosRoll - MagBuffer[2]*fSinRoll*fCosPitch;
+			
+	fcosf=fTiltedX /sqrt(fTiltedX*fTiltedX+fTiltedY*fTiltedY);
+	
+	if(fTiltedY>0)
+		HeadingValue = (float)(acos(fcosf)*180/PI);
+	else
+		HeadingValue =360-(float)(acos(fcosf)*180/PI);
+			
+      //HeadingValue = (float) ((atan2f((float)fTiltedY,(float)fTiltedX))*180)/PI;
+      HeadingValue+=11;//
+			if(HeadingValue>360)
+			{
+				HeadingValue=HeadingValue-360;
+			}
+   
+	    return HeadingValue ;
+}
+
+void setAngle(float a)
+{
+	systemAngle = a;
+}
+float getAngle(void)
+{
+	return systemAngle;
 }
