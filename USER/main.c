@@ -190,6 +190,7 @@ void SensorData(void *pArg)
 {
 	static int i =0;
 	float acc[3] = {0};
+	float acca[3] = {0};
 	float mag[3]={0};
 	while(1)
 	{
@@ -214,13 +215,14 @@ void SensorData(void *pArg)
 			acc[2] = filterStepZ(acceleration_mg[2]);
 			//printf("x:%5.3f y:%5.3f z:%5.3f\r\n",acc[0],acc[1],acc[2]);
 			sensorChanged(acc[0],acc[1],acc[2]);
+    	acca[0] = filterAngleX(acceleration_mg[0]);
+      acca[1] = filterAngleY(acceleration_mg[1]);
+      acca[2] = filterAngleZ(acceleration_mg[2]);
 			if ( reg.status_mag.zyxda )
 			{
 				/* Read magnetometer data */
 				memset(data_raw_magnetic_field.u8bit, 0x00, 3 * sizeof(int16_t));
-
 				lsm9ds1_magnetic_raw_get(&dev_ctx_mag, data_raw_magnetic_field.u8bit);
-
 				magnetic_field_mgauss[0] = lsm9ds1_from_fs16gauss_to_mG(data_raw_magnetic_field.i16bit[0]);
 				magnetic_field_mgauss[1] = lsm9ds1_from_fs16gauss_to_mG(data_raw_magnetic_field.i16bit[1]);
 				magnetic_field_mgauss[2] = lsm9ds1_from_fs16gauss_to_mG(data_raw_magnetic_field.i16bit[2]);
@@ -228,9 +230,7 @@ void SensorData(void *pArg)
 				//sprintf((char*)tx_buffer, "MAG - [mG]:%4.2f\t%4.2f\t%4.2f\r\n",magnetic_field_mgauss[0], magnetic_field_mgauss[1], magnetic_field_mgauss[2]);
 		    //printf("%s",tx_buffer);
 				
-				acc[0] = filterAngleX(acceleration_mg[0]);
-		    acc[1] = filterAngleY(acceleration_mg[1]);
-			  acc[2] = filterAngleZ(acceleration_mg[2]);
+
 				
 	    	mag[0] = filterAngleX(magnetic_field_mgauss[0]);
 		    mag[1] = filterAngleY(magnetic_field_mgauss[1]);
@@ -241,8 +241,8 @@ void SensorData(void *pArg)
 //			  mag[2] = (magnetic_field_mgauss[2]);
 				
 				i++;
-				float ang = Data_conversion(acc,mag);
-				float angle = filter(ang);
+				float angle = Data_conversion(acca,mag);
+				//float angle = filter(ang);
 				setAngle(angle);
 				if(i%100==0)
 				{
